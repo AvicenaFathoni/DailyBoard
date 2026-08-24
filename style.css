@@ -1,0 +1,516 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Helvetica;
+  background: #f4f7f5;
+  color: #1f2937;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+#app {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 25px 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.header-container,
+.welcome-text {
+  grid-column: 1 / -1;
+}
+
+.section-tugas {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.section-quotes {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.section-catatan {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.section-cuaca {
+  grid-column: 2;
+  grid-row: 4;
+  min-height: 200px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.judul {
+  font-size: 36px;
+  letter-spacing: 15%;
+}
+
+.welcome-text {
+  margin-bottom: 25px;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+#toggle-tema {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url("aset/Moon.png");
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  font-size: 0;
+}
+
+body.dark-mode #toggle-tema {
+  background-image: url("aset/Sun.png");
+  background-color: #303832;
+  border-color: #555;
+}
+
+.section-tugas,
+.section-catatan,
+.section-quotes,
+.section-cuaca {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.judul-section,
+.judul-widget {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.input-teks,
+.input-teks-textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  color: #1f2937;
+  padding: 10px;
+  outline: none;
+}
+
+.input-teks {
+  height: 42px;
+  margin-bottom: 10px;
+}
+
+.input-teks-textarea {
+  min-height: 120px;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.input-teks:focus,
+.input-teks-textarea:focus {
+  border-color: #3f7d57;
+}
+
+#cari-tugas {
+  width: 25%;
+  height: 42px;
+  padding: 10px;
+  margin-bottom: 10px;
+
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #1f2937;
+  outline: none;
+}
+
+#cari-tugas:focus {
+  border-color: #3f7d57;
+}
+
+#cari-tugas::placeholder {
+  color: #888;
+}
+
+body.dark-mode #cari-tugas {
+  background: #151b18;
+  border-color: #39453e;
+  color: #e5e7eb;
+}
+
+body.dark-mode #cari-tugas::placeholder {
+  color: #777;
+}
+
+.tombol-utama,
+.tombol-filter,
+.tombol-hapus {
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tombol-utama {
+  padding: 10px 15px;
+  background: #3f7d57;
+  color: white;
+  font-weight: bold;
+}
+
+.tombol-utama:hover {
+  background: #356b49;
+}
+
+.tombol-filter {
+  padding: 8px 12px;
+  margin: 10px 5px 10px 0;
+  background: #e9eee9;
+  color: #374151;
+}
+
+.tombol-filter:hover {
+  background: #dce5dd;
+}
+
+.tombol-hapus {
+  padding: 6px 10px;
+  margin-top: 8px;
+  background: #eee;
+  color: #555;
+}
+
+.tombol-hapus:hover {
+  background: #f5dada;
+  color: #a00;
+}
+
+.wadah-list {
+  margin-top: 10px;
+}
+
+.daftar-tugas {
+  list-style: none;
+}
+
+.tugas-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+  cursor: grab;
+  user-select: none;
+}
+
+.tugas-item:hover {
+  background: #f1f5f2;
+}
+
+.tugas-item.dragging {
+  opacity: 0.5;
+}
+
+.tugas-item .tombol-hapus {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.catatan-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.catatan-item p {
+  margin-bottom: 7px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.catatan-item small {
+  color: #888;
+  font-size: 13px;
+}
+
+.catatan-item .tombol-hapus {
+  display: block;
+}
+
+.header-kutipan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.header-kutipan .judul-widget {
+  margin: 0;
+}
+
+.header-kutipan .judul-widget {
+  margin-bottom: 0;
+}
+
+
+
+.widget-cuaca {
+  min-height: 70px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f7f9f7;
+  line-height: 1.5;
+}
+
+#refresh-kutipan {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url("aset/Refresh-Dark.png");
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  font-size: 0;
+}
+
+body.dark-mode #refresh-kutipan {
+  background-image: url("aset/Refresh-Light.png");
+  background-color: #303832;
+  border-color: #555;
+}
+
+.widget-kutipan {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f7f9f7;
+  color: #374151;
+  font-size: 17px;
+  line-height: 1.6;
+  font-style: italic;
+  overflow-wrap: anywhere;
+}
+
+body.dark-mode .widget-kutipan {
+  background: #151b18;
+  border-color: #303b34;
+  color: #e5e7eb;
+}
+
+#button-lokasi {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border: 0;
+  border-radius: 6px;
+  background: #3f7d57;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#button-lokasi:hover {
+  background: #356b49;
+}
+
+.nama-kota {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.suhu {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.widget-cuaca {
+  min-height: 70px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f7f9f7;
+  line-height: 1.5;
+}
+
+.cuaca-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cuaca-info img {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #d5dcd7;
+  border-radius: 8px;
+  background: white;
+}
+
+body.dark-mode .cuaca-info img {
+  border-color: #3a463e;
+  background: #151b18;
+}
+
+.widget-kutipan {
+  font-style: italic;
+}
+
+.teks-status {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+body.dark-mode #button-refresh-quote {
+  background: #151b18;
+  border-color: #39453e;
+}
+
+body.dark-mode #button-refresh-quote:hover {
+  background: #1d2721;
+}
+
+body.dark-mode #button-lokasi {
+  background: #3f7d57;
+  color: white;
+}
+
+body.dark-mode #button-lokasi:hover {
+  background: #356b49;
+}
+
+body.dark-mode {
+  background: #111614;
+  color: #e5e7eb;
+}
+
+body.dark-mode .welcome-text,
+body.dark-mode .teks-status {
+  color: #aaa;
+}
+
+body.dark-mode .section-tugas,
+body.dark-mode .section-catatan,
+body.dark-mode .section-quotes,
+body.dark-mode .section-cuaca {
+  background: #1a211e;
+  border-color: #303b34;
+}
+
+body.dark-mode .input-teks,
+body.dark-mode .input-teks-textarea {
+  background: #151b18;
+  border-color: #39453e;
+  color: #e5e7eb;
+}
+
+body.dark-mode .input-teks::placeholder,
+body.dark-mode .input-teks-textarea::placeholder {
+  color: #777;
+}
+
+body.dark-mode .tombol-filter {
+  background: #29332d;
+  color: #ddd;
+}
+
+body.dark-mode .tugas-item,
+body.dark-mode .catatan-item,
+body.dark-mode .widget-kutipan,
+body.dark-mode .widget-cuaca {
+  background: #151b18;
+  border-color: #303b34;
+}
+
+body.dark-mode .tugas-item:hover {
+  background: #1d2721;
+}
+
+body.dark-mode .tombol-hapus {
+  background: #29302c;
+  color: #ccc;
+}
+
+/*buat hp*/
+@media (max-width: 700px) {
+  #app {
+    width: 94%;
+
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .header-container,
+  .welcome-text,
+  .section-tugas,
+  .section-catatan,
+  .section-quotes,
+  .section-cuaca {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .section-tugas,
+  .section-catatan,
+  .section-quotes,
+  .section-cuaca {
+    padding: 15px;
+  }
+
+  .judul {
+    font-size: 28px;
+  }
+
+  .tombol-utama,
+  .tombol-filter {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .tombol-filter {
+    margin-top: 5px;
+  }
+
+  #button-lokasi {
+    width: 100%;
+  }
+}
